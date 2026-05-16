@@ -1,7 +1,16 @@
-export const errorHandler = (err, req, res, next) => {
-  const status = err.status || 500;
+import { HttpError } from 'http-errors';
 
-  res.status(status).json({
-    message: err.message,
+export const errorHandler = (error, req, res, next) => {
+  if (error instanceof HttpError) {
+    return res.status(error.status).json({
+      message: error.message || error.name,
+    });
+  }
+
+  const isProduction = process.env.NODE_ENV === 'production';
+  const message = isProduction ? 'Some error' : error.message;
+
+  res.status(500).json({
+    message,
   });
 };
