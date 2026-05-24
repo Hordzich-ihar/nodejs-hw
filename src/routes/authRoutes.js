@@ -19,5 +19,4 @@ router.post('/auth/login', celebrate(loginUserSchema), loginUser);
 router.post('/auth/refresh', refreshUserSession);
 router.post('/auth/logout', logoutUser);
 
-export const authRouter = router;
 export default router;
