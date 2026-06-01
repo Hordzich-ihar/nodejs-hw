@@ -7,11 +7,11 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const saveFileToCloudinary = (buffer) =>
+export const saveFileToCloudinary = (buffer, userId) =>
   new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {
-        public_id: `avatar-${Date.now()}`,
+        public_id: `avatar-${userId}`,
         folder: 'avatars',
         overwrite: true,
         unique_filename: false,
